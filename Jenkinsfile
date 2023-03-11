@@ -18,5 +18,27 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('Build Docker Images') {
+             steps {
+                 sh 'docker build -t vigneshbondugula/miniproj:latest .'
+             }
+        }
+        stage('Publish Docker Images') {
+            steps {
+                withDockerRegistry([ credentialsId: "DockerJenkins", url: "" ]) {
+                    sh 'docker push vigneshbondugula/miniproj:latest'
+                }
+            }
+        }
+        stage('Clean Docker Images') {
+            steps {
+               sh 'docker rmi -f vigneshbondugula/miniproj:latest'
+            }
+        }
     }
+      post {
+            always {
+                sh 'docker logout'
+            }
+        }
 }
