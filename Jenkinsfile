@@ -35,6 +35,11 @@ pipeline {
                sh 'docker rmi -f vigneshbondugula/miniproj:latest'
             }
         }
+        stage('Deploy and Run Image'){
+        steps {
+            ansiblePlaybook becomeUser: null, colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'calc_playbook.yml', sudoUser: null
+            }
+        }
     }
       post {
             always {
