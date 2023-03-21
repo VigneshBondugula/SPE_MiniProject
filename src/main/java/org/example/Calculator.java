@@ -89,7 +89,7 @@ public class Calculator {
     }
 
     public double power(double number1, double number2) {
-        logger.info("[POWER - " + number1 + " RAISED TO] " + number2);
+        logger.info("[POWER] - " + number2);
         double result = Math.pow(number1,number2);
         logger.info("[RESULT - POWER] - " + result);
         return result;
